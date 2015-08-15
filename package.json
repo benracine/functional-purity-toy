@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "immutable": "^3.7.4",
+    "underscore": "^1.8.3",
+    "underscore.string": "^3.1.1"
+  }
+}
