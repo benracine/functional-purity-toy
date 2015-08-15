@@ -11,7 +11,7 @@ I can be found at:
 
 ## Quick start
 
-`$node count-states.js`
+`$ node count-states.js`
 
 ## TODO
 
