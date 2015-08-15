@@ -7,6 +7,7 @@ Any and all comments welcome.
 
 ## Quick start
 
+`$ npm install`
 `$ node count-states.js`
 
 ## TODO
