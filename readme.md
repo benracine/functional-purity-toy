@@ -9,6 +9,10 @@ I can be found at:
 - i3enhamin@gmail.com
 - @i3enhamin
 
+## Quick start
+
+`$node count-states.js`
+
 ## TODO
 
 Make globals immutable.
