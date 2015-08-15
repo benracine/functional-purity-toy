@@ -7,6 +7,8 @@ var STATES = state_info.STATES;
 var ABBRS = state_info.ABBRS;
 var UNION = _.union(STATES, ABBRS);
 
+// Make some changes
+
 // Impure functions
 if (require.main === module) {
   var filename = process.argv[2] || './homesteading-cities.txt';
