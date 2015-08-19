@@ -26,6 +26,7 @@ function print(line) {
 }
 
 // Pure functions (they may use globals, but they don't mutate globals, so that's "ok" in the functional paradigm, I think)
+// They should be made immutable using a JavaScript library (like the one currently imported?) to ensure the above statement though
 function processString(data) {
   return _.chain(data.split('\n'))
     .filter(containsState)
@@ -63,6 +64,7 @@ function createMapping(ABBRS, STATES) {
   return _.reduce(_.zip(ABBRS, STATES), addKey, {});
 }
 
+// The mutation herein needs to / could be eliminated somehow probably
 function addKey(memo, pair) {
   var obj = {};
   obj[pair[0]] = pair[1];
