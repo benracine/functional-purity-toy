@@ -13,4 +13,3 @@ Any and all comments welcome.
 
 ## TODO
 
-Make globals immutable.

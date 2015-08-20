@@ -24,7 +24,10 @@ function print(line) {
   console.log(line); 
 }
 
-// Pure functions (they may use globals, but these globals are made immutable with Object.freeze, so that's "ok" in the functional paradigm, I think)
+// Pure functions 
+// They may use globals, but these globals are made immutable with Object.freeze, so 
+// I think that's "ok" in the functional paradigm
+
 function processString(data) {
   return _.chain(data.split('\n'))
     .filter(containsState)
@@ -62,11 +65,13 @@ function createMapping(ABBRS, STATES) {
   return _.reduce(_.zip(ABBRS, STATES), addKey, {});
 }
 
-// The mutation herein needs to / could be eliminated somehow probably
 function addKey(memo, pair) {
-  var obj = {};
-  obj[pair[0]] = pair[1];
-  return _.extend(memo, obj);
+  function newObject(pair) {
+    var key = pair[0];
+    var value = pair[1];
+    return new Object({key: value});
+  }
+  return _.extend(memo, newObject(pair))
 }
 
 function reverseByCount(pair) { 
