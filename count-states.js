@@ -1,11 +1,10 @@
 var fs = require('fs');
-var Immutable = require('immutable');
 var _ = require('underscore');
 _.str = require('underscore.string');
 var state_info = require('./states.json');
-var STATES = state_info.STATES;
-var ABBRS = state_info.ABBRS;
-var UNION = _.union(STATES, ABBRS);
+var STATES = Object.freeze(state_info.STATES);
+var ABBRS = Object.freeze(state_info.ABBRS);
+var UNION = Object.freeze(_.union(STATES, ABBRS));
 
 // Impure functions
 if (require.main === module) {
@@ -25,8 +24,7 @@ function print(line) {
   console.log(line); 
 }
 
-// Pure functions (they may use globals, but they don't mutate globals, so that's "ok" in the functional paradigm, I think)
-// They should be made immutable using a JavaScript library (like the one currently imported?) to ensure the above statement though
+// Pure functions (they may use globals, but these globals are made immutable with Object.freeze, so that's "ok" in the functional paradigm, I think)
 function processString(data) {
   return _.chain(data.split('\n'))
     .filter(containsState)
