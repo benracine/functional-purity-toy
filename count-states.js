@@ -65,6 +65,7 @@ function createMapping(ABBRS, STATES) {
   return _.reduce(_.zip(ABBRS, STATES), addKey, {});
 }
 
+/*
 function addKey(memo, pair) {
   function newObject(pair) {
     var key = pair[0];
@@ -72,6 +73,13 @@ function addKey(memo, pair) {
     return new Object({key: value});
   }
   return _.extend(memo, newObject(pair))
+}
+*/
+
+function addKey(memo, pair) {
+  var obj = {};
+  obj[pair[0]] = pair[1];
+  return _.extend(memo, obj);
 }
 
 function reverseByCount(pair) { 
