@@ -37,7 +37,7 @@ function stateFunctions() {
   var UNION = _.union(STATES, ABBRS);
   return {
     'containsState': function(line) { return RegExp(UNION.join('|')).test(line); },
-    'createMapping': function(ABBRS, STATES) { return _.reduce(_.zip(ABBRS, STATES), addPair, {}); },
+    'createMapping': function(ABBRS, STATES) { return _.reduce(_.zip(ABBRS, STATES), extendPair, {}); },
     'extractState': function(line) {
       function addState(memo, state) { 
         if (_.str.contains(line, state))
@@ -60,8 +60,12 @@ var extractState = state_functions['extractState'];
 var unabbreviate = state_functions['unabbreviate'];
 var createMapping = state_functions['createMapping'];
 
-function addPair(memo, pair) { 
-  return _.extend(memo, _.object([pair[0]], [pair[1]])); 
+function extendPair(memo, pair) { 
+  return _.extend(memo, keyValuePairToObject(pair));
+}
+
+function keyValuePairToObject(pair) { 
+  return _.object([pair[0]], [pair[1]]);
 }
 
 function reverseByCount(pair) { 
