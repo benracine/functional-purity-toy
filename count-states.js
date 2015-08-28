@@ -56,13 +56,7 @@ var extractState = state_functions['extractState'];
 var unabbreviate = state_functions['unabbreviate'];
 var createMapping = state_functions['createMapping'];
 
-function addPair(memo, pair) { return _.extend(memo, objFromPair(pair)); }
-
-function objFromPair(pair) {
-  var obj = {};
-  obj[pair[0]] = pair[1];
-  return obj;
-}
+function addPair(memo, pair) { return _.extend(memo, _.object(pair)); }
 
 function reverseByCount(pair) { return -1 * pair[1]; }
 
