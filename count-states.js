@@ -27,7 +27,6 @@ function processString(data) {
     .value();
 }
 
-// Wrap in a closure to avoid polluting the global namespace
 function stateFunctions() {
   var state_info = require('./states.json');
   var STATES = state_info.STATES;
@@ -60,7 +59,6 @@ var createMapping = state_functions['createMapping'];
 
 function addKey(memo, pair) {
   var obj = {};
-  // This next line is a mutation that needs to be removed in the name of functional purity
   obj[pair[0]] = pair[1];
   return _.extend(memo, obj);
 }
