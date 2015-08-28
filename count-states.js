@@ -41,10 +41,10 @@ function stateFunctions() {
   var ABBRS = state_info.ABBRS;
   var UNION = _.union(STATES, ABBRS);
   return {
-    'containsState': function containsState(line) {
+    'containsState': function(line) {
       return RegExp(UNION.join('|')).test(line);
     },
-    'extractState': function extractState(line) {
+    'extractState': function(line) {
       function addState(memo, state) { 
         if (_.str.contains(line, state))
           memo.push(state);
@@ -52,13 +52,13 @@ function stateFunctions() {
       }
       return _.reduce(UNION, addState, []);
     },
-    'unabbreviate': function unabbreviate(state) {
+    'unabbreviate': function(state) {
       if (_.contains(STATES, state))
         return state;
       else if (_.contains(ABBRS, state))
         return createMapping(ABBRS, STATES)[state];
     },
-    'createMapping': function createMapping(ABBRS, STATES) {
+    'createMapping': function(ABBRS, STATES) {
       return _.reduce(_.zip(ABBRS, STATES), addKey, {});
     }
   }
