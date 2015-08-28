@@ -9,7 +9,6 @@ if (require.main === module) {
 }
 
 function main(filename) { fs.readFile(filename, 'utf8', processFile); }
-
 function processFile(err, data) { processString(data).forEach(function(line) { console.log(line); }); }
 
 // Pure functions 
@@ -57,7 +56,5 @@ var unabbreviate = state_functions['unabbreviate'];
 var createMapping = state_functions['createMapping'];
 
 function addPair(memo, pair) { return _.extend(memo, _.object(pair)); }
-
 function reverseByCount(pair) { return -1 * pair[1]; }
-
 function stringifyPair(pair) { return pair[0] + ' ' + pair[1]; }
