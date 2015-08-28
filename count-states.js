@@ -8,9 +8,13 @@ if (require.main === module) {
   main(filename);
 }
 
-function main(filename) { fs.readFile(filename, 'utf8', processFile); }
+function main(filename) { 
+  fs.readFile(filename, 'utf8', processFile); 
+}
 
-function processFile(err, data) { processString(data).forEach(function(line) { console.log(line); }); }
+function processFile(err, data) { 
+  processString(data).forEach(function(line) { console.log(line); }); 
+}
 
 // Pure functions 
 function processString(data) {
@@ -56,14 +60,14 @@ var extractState = state_functions['extractState'];
 var unabbreviate = state_functions['unabbreviate'];
 var createMapping = state_functions['createMapping'];
 
-function addPair(memo, pair) { return _.extend(memo, objFromPair(pair)); }
-
-function objFromPair(pair) {
-  var obj = {};
-  obj[pair[0]] = pair[1];
-  return obj;
+function addPair(memo, pair) { 
+  return _.extend(memo, _.object([pair[0]], [pair[1]])); 
 }
 
-function reverseByCount(pair) { return -1 * pair[1]; }
+function reverseByCount(pair) { 
+  return -1 * pair[1];
+}
 
-function stringifyPair(pair) { return pair[0] + ' ' + pair[1]; }
+function stringifyPair(pair) { 
+  return pair[0] + ' ' + pair[1]; 
+}
