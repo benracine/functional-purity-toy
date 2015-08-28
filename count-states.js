@@ -12,7 +12,6 @@ function main(filename) { fs.readFile(filename, 'utf8', processFile); }
 
 function processFile(err, data) { processString(data).forEach(function(line) { console.log(line); }); }
 
-
 // Pure functions 
 function processString(data) {
   return _.chain(data.split('\n'))
