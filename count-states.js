@@ -36,11 +36,8 @@ function stateFunctions() {
     'createMapping': function(ABBRS, STATES) { return _.reduce(_.zip(ABBRS, STATES), addKey, {}); },
     'extractState': function(line) {
       function addState(memo, state) { 
-        console.log('\n')
-        console.log(memo);
         if (_.str.contains(line, state))
           memo.push(state);
-        console.log(memo);
         return memo;
       }
       return _.reduce(UNION, addState, []);
