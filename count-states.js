@@ -57,6 +57,16 @@ var state_functions = (function() {
 function createMapping(ABBRS, STATES) { 
   return _.reduce(_.zip(ABBRS, STATES), extendObjByPair, {}); 
 }
+/* If this were clojure syntax
+(defn createMapping [ABBRS, STATES]
+  (_.reduce (_.zip ABBRS STATES) extendObjByPair {})
+)
+*/
+
+/* If this were Haskell syntax
+createMapping ABBRS STATES = 
+  _.reduce _.zip ABBRS STATES (extendObjByPair) {} 
+*/
 
 function extendObjByPair(memo, pair) { 
   return _.extend(memo, keyValuePairToObject(pair));
