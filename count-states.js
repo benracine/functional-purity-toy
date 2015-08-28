@@ -19,10 +19,10 @@ function processFile(err, data) {
 // Pure functions 
 function processString(data) {
   return _.chain(data.split('\n'))
-    .filter(containsState)
-    .map(extractState)
+    .filter(state_functions.containsState)
+    .map(state_functions.extractState)
     .flatten()
-    .map(unabbreviate)
+    .map(state_functions.unabbreviate)
     .countBy()
     .pairs()
     .sortBy(reverseByCount)
@@ -30,14 +30,15 @@ function processString(data) {
     .value();
 }
 
-function stateFunctions() {
+var state_functions = (function() {
   var state_info = require('./states.json');
   var STATES = state_info.STATES;
   var ABBRS = state_info.ABBRS;
   var UNION = _.union(STATES, ABBRS);
   return {
-    'containsState': function(line) { return RegExp(UNION.join('|')).test(line); },
-    'createMapping': function(ABBRS, STATES) { return _.reduce(_.zip(ABBRS, STATES), extendObjByPair, {}); },
+    'containsState': function(line) { 
+      return RegExp(UNION.join('|')).test(line); 
+    },
     'extractState': function(line) {
       function addState(memo, state) { 
         if (_.str.contains(line, state))
@@ -53,12 +54,11 @@ function stateFunctions() {
         return createMapping(ABBRS, STATES)[state];
     }
   }
+})();
+
+function createMapping(ABBRS, STATES) { 
+  return _.reduce(_.zip(ABBRS, STATES), extendObjByPair, {}); 
 }
-var state_functions = stateFunctions();
-var containsState = state_functions['containsState'];
-var extractState = state_functions['extractState'];
-var unabbreviate = state_functions['unabbreviate'];
-var createMapping = state_functions['createMapping'];
 
 function extendObjByPair(memo, pair) { 
   return _.extend(memo, keyValuePairToObject(pair));
