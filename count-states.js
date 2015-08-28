@@ -9,6 +9,7 @@ if (require.main === module) {
 }
 
 function main(filename) { fs.readFile(filename, 'utf8', processFile); }
+
 function processFile(err, data) { processString(data).forEach(function(line) { console.log(line); }); }
 
 // Pure functions 
@@ -32,7 +33,7 @@ function stateFunctions() {
   var UNION = _.union(STATES, ABBRS);
   return {
     'containsState': function(line) { return RegExp(UNION.join('|')).test(line); },
-    'createMapping': function(ABBRS, STATES) { return _.reduce(_.zip(ABBRS, STATES), extendPair, {}); },
+    'createMapping': function(ABBRS, STATES) { return _.reduce(_.zip(ABBRS, STATES), addPair, {}); },
     'extractState': function(line) {
       function addState(memo, state) { 
         if (_.str.contains(line, state))
@@ -55,6 +56,14 @@ var extractState = state_functions['extractState'];
 var unabbreviate = state_functions['unabbreviate'];
 var createMapping = state_functions['createMapping'];
 
-function extendPair(memo, pair) { return _.extend(memo, _.object(pair)); }
+function addPair(memo, pair) { return _.extend(memo, objFromPair(pair)); }
+
+function objFromPair(pair) {
+  var obj = {};
+  obj[pair[0]] = pair[1];
+  return obj;
+}
+
 function reverseByCount(pair) { return -1 * pair[1]; }
+
 function stringifyPair(pair) { return pair[0] + ' ' + pair[1]; }
