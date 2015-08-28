@@ -8,17 +8,10 @@ if (require.main === module) {
   main(filename);
 }
 
-function main(filename) { 
-  fs.readFile(filename, 'utf8', processFile); 
-}
+function main(filename) { fs.readFile(filename, 'utf8', processFile); }
 
-function processFile(err, data) { 
-  processString(data).forEach(print);
-}
+function processFile(err, data) { processString(data).forEach(function(line) { console.log(line); }); }
 
-function print(line) { 
-  console.log(line); 
-}
 
 // Pure functions 
 function processString(data) {
@@ -41,9 +34,8 @@ function stateFunctions() {
   var ABBRS = state_info.ABBRS;
   var UNION = _.union(STATES, ABBRS);
   return {
-    'containsState': function(line) {
-      return RegExp(UNION.join('|')).test(line);
-    },
+    'containsState': function(line) { return RegExp(UNION.join('|')).test(line); },
+    'createMapping': function(ABBRS, STATES) { return _.reduce(_.zip(ABBRS, STATES), addKey, {}); },
     'extractState': function(line) {
       function addState(memo, state) { 
         if (_.str.contains(line, state))
@@ -57,9 +49,6 @@ function stateFunctions() {
         return state;
       else if (_.contains(ABBRS, state))
         return createMapping(ABBRS, STATES)[state];
-    },
-    'createMapping': function(ABBRS, STATES) {
-      return _.reduce(_.zip(ABBRS, STATES), addKey, {});
     }
   }
 }
@@ -71,15 +60,11 @@ var createMapping = state_functions['createMapping'];
 
 function addKey(memo, pair) {
   var obj = {};
-  // This next line is a mutation that needs to be removed
+  // This next line is a mutation that needs to be removed in the name of functional purity
   obj[pair[0]] = pair[1];
   return _.extend(memo, obj);
 }
 
-function reverseByCount(pair) { 
-  return -1 * pair[1];
-}
+function reverseByCount(pair) { return -1 * pair[1]; }
 
-function stringifyPair(pair) { 
-  return pair[0] + ' ' + pair[1];
-}
+function stringifyPair(pair) { return pair[0] + ' ' + pair[1]; }
