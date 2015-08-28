@@ -41,8 +41,9 @@ var state_functions = (function() {
     },
     'extractState': function(line) {
       function addState(memo, state) { 
-        if (_.str.contains(line, state))
+        if (_.str.contains(line, state)) {
           memo.push(state);
+        }
         return memo;
       }
       return _.reduce(UNION, addState, []);
