@@ -2,12 +2,6 @@ var fs = require('fs');
 var Immutable = require('immutable');
 var _ = require('underscore');
 _.str = require('underscore.string');
-var state_info = require('./states.json');
-var STATES = state_info.STATES;
-var ABBRS = state_info.ABBRS;
-var UNION = _.union(STATES, ABBRS);
-
-// Make some changes
 
 // Impure functions
 if (require.main === module) {
@@ -27,7 +21,7 @@ function print(line) {
   console.log(line); 
 }
 
-// Pure functions (they may use globals, but they don't mutate globals, so that's "ok" in the functional paradigm, I think)
+// Pure functions 
 function processString(data) {
   return _.chain(data.split('\n'))
     .filter(containsState)
@@ -41,29 +35,40 @@ function processString(data) {
     .value();
 }
 
-function containsState(line) { 
-  return RegExp(UNION.join('|')).test(line);
-}
-
-function extractState(line) {
-  function addState(memo, state) { 
-    if (_.str.contains(line, state))
-      memo.push(state);
-    return memo;
+// Wrap in a closure to avoid polluting the global namespace
+function stateFunctions() {
+  var state_info = require('./states.json');
+  var STATES = state_info.STATES;
+  var ABBRS = state_info.ABBRS;
+  var UNION = _.union(STATES, ABBRS);
+  return {
+    'containsState': function containsState(line) {
+      return RegExp(UNION.join('|')).test(line);
+    },
+    'extractState': function extractState(line) {
+      function addState(memo, state) { 
+        if (_.str.contains(line, state))
+          memo.push(state);
+        return memo;
+      }
+      return _.reduce(UNION, addState, []);
+    },
+    'unabbreviate': function unabbreviate(state) {
+      if (_.contains(STATES, state))
+        return state;
+      else if (_.contains(ABBRS, state))
+        return createMapping(ABBRS, STATES)[state];
+    },
+    'createMapping': function createMapping(ABBRS, STATES) {
+      return _.reduce(_.zip(ABBRS, STATES), addKey, {});
+    }
   }
-  return _.reduce(UNION, addState, []);
 }
- 
-function unabbreviate(state) {
-  if (_.contains(STATES, state))
-    return state;
-  else if (_.contains(ABBRS, state))
-    return createMapping(ABBRS, STATES)[state];
-}
-
-function createMapping(ABBRS, STATES) { 
-  return _.reduce(_.zip(ABBRS, STATES), addKey, {});
-}
+var state_functions = stateFunctions();
+var containsState = state_functions['containsState'];
+var extractState = state_functions['extractState'];
+var unabbreviate = state_functions['unabbreviate'];
+var createMapping = state_functions['createMapping'];
 
 function addKey(memo, pair) {
   var obj = {};
