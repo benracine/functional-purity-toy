@@ -41,18 +41,15 @@ var state_functions = (function() {
     },
     'extractState': function(line) {
       function addState(memo, state) { 
-        if (_.str.contains(line, state)) {
-          return _.union(memo, [state]);
-        }
-        return memo;
+        if (_.str.contains(line, state)) return _.union(memo, [state]);
+        else return memo;
       }
       return _.reduce(UNION, addState, []);
     },
     'unabbreviate': function(state) {
-      if (_.contains(STATES, state))
-        return state;
-      else if (_.contains(ABBRS, state))
-        return createMapping(ABBRS, STATES)[state];
+      if (_.contains(STATES, state)) return state;
+      else if (_.contains(ABBRS, state)) return createMapping(ABBRS, STATES)[state];
+      else return state;
     }
   }
 })();
