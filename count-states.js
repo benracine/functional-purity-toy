@@ -57,13 +57,14 @@ var state_functions = (function() {
 function createMapping(ABBRS, STATES) { 
   return _.reduce(_.zip(ABBRS, STATES), extendObjByPair, {}); 
 }
-/* If this were clojure syntax
+
+/* If this were Clojure syntax, imagining that these underscore functions exist in that language
 (defn createMapping [ABBRS, STATES]
   (_.reduce (_.zip ABBRS STATES) extendObjByPair {})
 )
 */
 
-/* If this were Haskell syntax
+/* If this were Haskell syntax, imagining that these underscore functions exist in that language
 createMapping ABBRS STATES = 
   _.reduce _.zip ABBRS STATES (extendObjByPair) {} 
 */
