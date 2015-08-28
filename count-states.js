@@ -56,9 +56,7 @@ var extractState = state_functions['extractState'];
 var unabbreviate = state_functions['unabbreviate'];
 var createMapping = state_functions['createMapping'];
 
-function addPair(memo, pair) {
-  return _.extend(memo, objFromPair(pair));
-}
+function addPair(memo, pair) { return _.extend(memo, objFromPair(pair)); }
 
 function objFromPair(pair) {
   var obj = {};
