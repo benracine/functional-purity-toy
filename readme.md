@@ -1,4 +1,4 @@
-## Functional purity
+## Functional purity meets OO
 
 This is just a little exploration into how easy or hard it is to separate JavaScript(/node) code into a collection of mostly pure little functions.
 
@@ -13,9 +13,3 @@ I also wrapped it up into what is kinda sorta OO code, but not really.
 `$ npm install`
 
 `$ npm start`
-
-## TODO
-
-Things I really should add:
-- Tests
-
