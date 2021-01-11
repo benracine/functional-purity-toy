@@ -1,15 +1,13 @@
 ## Functional purity meets OO
 
-This is just a little exploration into how easy or hard it is to separate JavaScript(/node) code into a collection of mostly pure little functions.
-
-Any and all comments welcome.
-
-I recently updated it be more ES6 friendly.
-
-I also wrapped it up into what is kinda sorta OO code, but not really. 
+This is basically just a tiny exploration into using lexical closures as a minimum viable langugage feature to start to code in an object-oriented style.
 
 ## Quick start
 
 `$ npm install`
 
 `$ npm start`
+
+Some internal tests should pass. 
+
+You should find out which states might be best for homesteading. Or, at least ones that are popular in one particular social media group. 
