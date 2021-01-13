@@ -8,7 +8,7 @@ The source code is in `countStates.js`. The text file, `homesteading-cities.txt`
 
 `$ npm install`
 
-`$ npm start`
+`$ npm run start`
 
 Some internal tests should pass. 
 
